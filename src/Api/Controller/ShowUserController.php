@@ -60,9 +60,9 @@ class ShowUserController extends AbstractShowController
         $actor = RequestUtil::getActor($request);
 
         if (Arr::get($request->getQueryParams(), 'bySlug', false)) {
-            $user = $this->slugManager->forResource(User::class)->fromSlug($id, $actor);
+            $user = $this->slugManager->forResource(User::class)->fromSlug(urldecode($id), $actor);
         } else {
-            $user = $this->users->findOrFail($id, $actor);
+            $user = $this->users->findOrFail(urldecode($id), $actor);
         }
 
         if ($actor->id === $user->id) {
